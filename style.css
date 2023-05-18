@@ -1,3 +1,7 @@
+body {
+  background-color: yellow;
+}
+
 #tic-tac-toe-board {
   display: flex;
   flex-direction: column;
@@ -17,6 +21,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
 }
 
 #reset {
