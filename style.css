@@ -5,10 +5,24 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
   margin: 0;
   padding: 0;
 }
+
+#title {
+  font-size: 2.5em;
+  font-family: 'Pacifico', cursive; /* Using Pacifico font */
+  color: #000000;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+#title:hover {
+  transform: scale(1.05);
+}
+
 
 #tic-tac-toe-board {
   display: flex;
