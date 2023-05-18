@@ -33,6 +33,7 @@ board.forEach(cell => {
 });
 
 function handleClick(e) {
+  clickSound.currentTime = 0; 
   clickSound.play();
   if (o_turn) {
     e.target.innerText = 'O';
@@ -72,6 +73,7 @@ function handleClick(e) {
 document.getElementById('reset').addEventListener('click', resetBoard);
 
 function resetBoard() {
+  clickSound.currentTime = 0; 
   clickSound.play();
   board.forEach(cell => {
     cell.innerText = '';
