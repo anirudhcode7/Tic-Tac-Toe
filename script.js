@@ -1,6 +1,7 @@
 let board = Array.from(document.getElementsByClassName('cell'));
 let o_turn = false;
 let status = document.getElementById('game-status');
+let clickSound = document.getElementById('click-sound');
 
 function checkForVictory(squares) {
   let combos = [
@@ -32,6 +33,7 @@ board.forEach(cell => {
 });
 
 function handleClick(e) {
+  clickSound.play();
   if (o_turn) {
     e.target.innerText = 'O';
     e.target.style.color = '#b30000';
@@ -70,6 +72,7 @@ function handleClick(e) {
 document.getElementById('reset').addEventListener('click', resetBoard);
 
 function resetBoard() {
+  clickSound.play();
   board.forEach(cell => {
     cell.innerText = '';
     cell.addEventListener('click', handleClick, { once: true });
