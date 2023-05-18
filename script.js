@@ -1,5 +1,6 @@
 let board = Array.from(document.getElementsByClassName('cell'));
 let o_turn = false;
+let status = document.getElementById('game-status');
 
 function checkForVictory(squares) {
   let combos = [
@@ -40,13 +41,30 @@ function handleClick(e) {
   }
 
   if (checkForVictory(board)) {
-    setTimeout(() => {
-      alert('We have a winner!');
-      resetBoard();
-    }, 100);
+    let winner = o_turn ? 'O' : 'X';
+    let funWinningPhrases = [
+      `Hooray! ${winner} won the game!`,
+      `Yippee! ${winner} took the day!`,
+      `Glorious victory for ${winner}!`
+    ];
+    let randomIndex = Math.floor(Math.random() * funWinningPhrases.length);
+    status.innerText = funWinningPhrases[randomIndex];
+
+    setTimeout(resetBoard, 2000);
+  } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
+    let funDrawPhrases = [
+      `Oops! It's a draw. Try again!`,
+      `A tie! The battlefield is even!`,
+      `It's a standoff! Let's have another round!`
+    ];
+    let randomIndex = Math.floor(Math.random() * funDrawPhrases.length);
+    status.innerText = funDrawPhrases[randomIndex];
+
+    setTimeout(resetBoard, 2000);
   } else {
     o_turn = !o_turn;
   }
+
 }
 
 document.getElementById('reset').addEventListener('click', resetBoard);
@@ -56,5 +74,6 @@ function resetBoard() {
     cell.innerText = '';
     cell.addEventListener('click', handleClick, { once: true });
   });
+  status.innerText = '';
   o_turn = false;
 }
