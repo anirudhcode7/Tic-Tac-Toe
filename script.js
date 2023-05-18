@@ -33,10 +33,10 @@ board.forEach(cell => {
 function handleClick(e) {
   if (o_turn) {
     e.target.innerText = 'O';
-    e.target.style.color = 'red';
+    e.target.style.color = '#b30000';
   } else {
     e.target.innerText = 'X';
-    e.target.style.color = 'blue';
+    e.target.style.color = '#0033cc';
   }
 
   if (checkForVictory(board)) {
