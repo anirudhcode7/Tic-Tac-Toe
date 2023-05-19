@@ -7,26 +7,29 @@
 <body>
   <audio id="click-sound" src="sounds/Pop_sound_effect.mp3" preload="auto"></audio>
   <audio id="win-sound" src="sounds/knife_slice.mp3" preload="auto"></audio>
+  <div id="line"></div>
   <h1 id="title">Xquisite X's and O's</h1>
-  <div id="tic-tac-toe-board">
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
+  <div id="container">
+    <div id="tic-tac-toe-board">
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
     </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
+      <button id="reset">Reset</button>
+      <h2 id="game-status"></h2>
   </div>
-    <button id="reset">Reset</button>
-    <h2 id="game-status"></h2>
   <script src="script.js"></script>
 </body>
 </html>

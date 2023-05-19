@@ -2,6 +2,7 @@ let board = Array.from(document.getElementsByClassName('cell'));
 let o_turn = false;
 let gameEnded = false;
 let status = document.getElementById('game-status');
+let line = document.getElementById('line'); // You should have a line element in your HTML
 let clickSound = document.getElementById('click-sound');
 let winSound = document.getElementById('win-sound');
 
@@ -17,7 +18,7 @@ function checkForVictory(squares) {
     [2, 4, 6]
   ];
 
-  return combos.find(combo => {
+  let winningCombo =  combos.find(combo => {
     if (
       squares[combo[0]].innerText &&
       squares[combo[0]].innerText === squares[combo[1]].innerText &&
@@ -28,6 +29,33 @@ function checkForVictory(squares) {
       return false;
     }
   });
+
+  if(winningCombo) {
+    let startRect = board[winningCombo[0]].getBoundingClientRect();
+    let endRect = board[winningCombo[2]].getBoundingClientRect();
+    let boardRect = document.getElementById('tic-tac-toe-board').getBoundingClientRect();
+
+    // Calculate the center point of each cell
+
+    let startX = startRect.left + window.pageXOffset + startRect.width / 2;
+    let startY = startRect.top + window.pageYOffset + startRect.height / 2;
+    let endX = endRect.left + window.pageXOffset + endRect.width / 2;
+    let endY = endRect.top + window.pageYOffset + endRect.height / 2;
+
+
+    line.style.width = Math.sqrt(Math.pow(startX - endX, 2) + Math.pow(startY - endY, 2)) + "px";
+    line.style.transform = "rotate(" + Math.atan2(endY - startY, endX - startX) + "rad)";
+    line.style.top = startY + "px";
+    line.style.transformOrigin = 'left center';
+    line.style.left = startX + "px";
+    line.style.display = "block";
+
+    return true;
+  }
+  else {
+    return false;
+  }
+
 }
 
 board.forEach(cell => {
@@ -85,6 +113,7 @@ document.getElementById('reset').addEventListener('click', resetBoard);
 function resetBoard() {
   clickSound.currentTime = 0; 
   clickSound.play();
+  line.style.width = 0;
   gameEnded = false;
   board.forEach(cell => {
     cell.innerText = '';
