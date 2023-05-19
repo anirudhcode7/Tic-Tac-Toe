@@ -6,6 +6,25 @@ let line = document.getElementById('line'); // You should have a line element in
 let clickSound = document.getElementById('click-sound');
 let winSound = document.getElementById('win-sound');
 
+function setRandomQuote() {
+  fetch('https://api.quotable.io/random')
+    .then(response => response.json())
+    .then(data => {
+      let quoteElement = document.getElementById('quote');
+      let authorElement = document.getElementById('quote-author');
+      
+      quoteElement.innerText = `"${data.content}"`;
+      authorElement.innerText = `- ${data.author}`;
+    })
+    .catch(err => {
+      console.error(err);
+      // In case the quote fetching fails, we can fall back to a default message
+      let quoteElement = document.getElementById('quote');
+      quoteElement.innerText = "Quote loading failed.";
+    });
+}
+
+
 function checkForVictory(squares) {
   let combos = [
     [0, 1, 2],
@@ -87,6 +106,7 @@ function handleClick(e) {
     ];
     let randomIndex = Math.floor(Math.random() * funWinningPhrases.length);
     status.innerText = funWinningPhrases[randomIndex];
+    setRandomQuote();
 
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
     gameEnded = true;

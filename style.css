@@ -111,7 +111,26 @@ body {
 }
 
 #game-status {
-  height: 50px; /* adjust as needed */
+  height: 30px; /* adjust as needed */
   text-align: center;
 }
 
+#quote-container {
+  font-family: 'Georgia', serif;
+  text-align: center;
+  margin-top: 20px;
+  height: 100px;  /* adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#quote {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+#quote-author {
+  font-size: 0.7em;
+  color: #777;
+}
