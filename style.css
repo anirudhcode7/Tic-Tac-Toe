@@ -77,17 +77,18 @@ body {
 /* This media query will apply the contained styles on screens that are 600px wide or smaller */
 @media screen and (max-width: 600px) {
   #title {
-    font-size: 3em; /* Increased from 2.5em */
+    font-size: 3em;
+    overflow: auto; /* Increased from 2.5em */
   }
 
   .cell {
-    width: 120px;
-    height: 120px;
+    width: 30%;
+    height: 30%;
     font-size: 4em;
   }
 
   #tic-tac-toe-board {
-    width: 360px; /* Width of three larger cells */
+    width: 90%; /* Width of three larger cells */
   }
 
   #game-status {
@@ -99,9 +100,6 @@ body {
     padding: 15px 25px; /* Increased from 10px 20px */
   }
 }
-
-
-
 
 #line {
   position: absolute;
