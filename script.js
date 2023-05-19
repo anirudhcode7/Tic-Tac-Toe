@@ -53,7 +53,6 @@ function handleClick(e) {
     let randomIndex = Math.floor(Math.random() * funWinningPhrases.length);
     status.innerText = funWinningPhrases[randomIndex];
 
-    setTimeout(resetBoard, 2000);
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
     let funDrawPhrases = [
       `Oops! It's a draw. Try again!`,
@@ -63,7 +62,6 @@ function handleClick(e) {
     let randomIndex = Math.floor(Math.random() * funDrawPhrases.length);
     status.innerText = funDrawPhrases[randomIndex];
 
-    setTimeout(resetBoard, 2000);
   } else {
     o_turn = !o_turn;
   }
