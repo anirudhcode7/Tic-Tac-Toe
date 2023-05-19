@@ -81,13 +81,14 @@ body {
   }
 
   #title {
-    font-size: 2.5em; /* Increased from 2.5em */
+    font-size: 2em; /* Decreased from 2.5em to make the title fit better */
+    padding: 0 10px; /* Add some horizontal padding */
   }
 
   .cell {
     width: 120px; /* Adjust based on typical mobile sizes */
     height: 120px; /* Adjust based on typical mobile sizes */
-    font-size: 2em;
+    font-size: 2.5em;
   }
 
   #tic-tac-toe-board {
