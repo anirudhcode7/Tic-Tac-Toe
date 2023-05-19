@@ -1,5 +1,6 @@
 let board = Array.from(document.getElementsByClassName('cell'));
 let o_turn = false;
+let gameEnded = false;
 let status = document.getElementById('game-status');
 let clickSound = document.getElementById('click-sound');
 
@@ -33,8 +34,13 @@ board.forEach(cell => {
 });
 
 function handleClick(e) {
+  if(gameEnded) {
+    return; // Return early if the game has ended
+  }
+
   clickSound.currentTime = 0; 
   clickSound.play();
+
   if (o_turn) {
     e.target.innerText = 'O';
     e.target.style.color = '#b30000';
@@ -44,6 +50,7 @@ function handleClick(e) {
   }
 
   if (checkForVictory(board)) {
+    gameEnded = true;
     let winner = o_turn ? 'O' : 'X';
     let funWinningPhrases = [
       `Hooray! ${winner} won the game!`,
@@ -54,6 +61,7 @@ function handleClick(e) {
     status.innerText = funWinningPhrases[randomIndex];
 
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
+    gameEnded = true;
     let funDrawPhrases = [
       `Oops! It's a draw. Try again!`,
       `A tie! The battlefield is even!`,
@@ -73,6 +81,7 @@ document.getElementById('reset').addEventListener('click', resetBoard);
 function resetBoard() {
   clickSound.currentTime = 0; 
   clickSound.play();
+  gameEnded = false;
   board.forEach(cell => {
     cell.innerText = '';
     cell.addEventListener('click', handleClick, { once: true });
