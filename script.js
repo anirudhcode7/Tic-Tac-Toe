@@ -5,8 +5,8 @@ let status = document.getElementById('game-status');
 let line = document.getElementById('line'); // You should have a line element in your HTML
 let clickSound = document.getElementById('click-sound');
 let winSound = document.getElementById('win-sound');
-let totalGames = 3;
 
+let totalGames = 3;
 let winsX = 0;
 let winsO = 0;
 let gamesPlayed = 0;
