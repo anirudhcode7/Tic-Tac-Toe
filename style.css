@@ -85,8 +85,8 @@ body {
   }
 
   .cell {
-    width: 60%; /* Adjust based on typical mobile sizes */
-    height: 60%; /* Adjust based on typical mobile sizes */
+    width: 120px; /* Adjust based on typical mobile sizes */
+    height: 120px; /* Adjust based on typical mobile sizes */
     font-size: 2em;
   }
 
