@@ -106,7 +106,7 @@ function handleClick(e) {
     ];
     let randomIndex = Math.floor(Math.random() * funWinningPhrases.length);
     status.innerText = funWinningPhrases[randomIndex];
-    setRandomQuote();
+    // setRandomQuote();
 
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
     gameEnded = true;
