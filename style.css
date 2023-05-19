@@ -74,6 +74,22 @@ body {
   background-color: #eaeaea;
 }
 
+/* This media query will apply the contained styles on screens that are 600px wide or smaller */
+@media screen and (max-width: 600px) {
+  .cell {
+    width: 120px;
+    height: 120px;
+    font-size: 4em;
+  }
+
+  #tic-tac-toe-board {
+    width: 360px; /* Width of three larger cells */
+  }
+
+  #game-status {
+    font-size: 2.5em;
+  }
+}
 
 
 #line {
