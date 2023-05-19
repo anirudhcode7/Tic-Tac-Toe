@@ -5,6 +5,47 @@ let status = document.getElementById('game-status');
 let line = document.getElementById('line'); // You should have a line element in your HTML
 let clickSound = document.getElementById('click-sound');
 let winSound = document.getElementById('win-sound');
+let totalGames = 3;
+
+let winsX = 0;
+let winsO = 0;
+let gamesPlayed = 0;
+let seriesCompleted = false;
+
+let scoreElement = document.getElementById("score");
+
+function initializeScorecard(){
+  scoreElement.innerText = `Score - X: ${winsX}, O: ${winsO}`
+  status.innerText = `Game: ${gamesPlayed}/${totalGames}`
+}
+
+
+// Call initializeGame when the page loads
+window.onload = initializeScorecard;
+
+// Update this function to increment the win counters
+function declareWinner(winner) {
+  if (winner == 'X') {
+    winsX++;
+  } else if (winner == 'O') {
+    winsO++;
+  }
+
+  document.querySelector('#score').innerText = `Score - X: ${winsX}, O: ${winsO}`;
+
+  if (gamesPlayed == totalGames) {
+    if (winsX > winsO) {
+      document.querySelector('#quote-container').style.display = "block";
+      document.querySelector('#game-status').innerText = "Player X won the series!";
+    } else if (winsO > winsX) {
+      document.querySelector('#quote-container').style.display = "block";
+      document.querySelector('#game-status').innerText = "Player O won the series!";
+    } else {
+      document.querySelector('#game-status').innerText = "The series ended in a draw!";
+    }
+    seriesCompleted = true;
+  }
+}
 
 function setRandomQuote() {
   fetch('https://api.quotable.io/random')
@@ -99,6 +140,11 @@ function handleClick(e) {
     winSound.currentTime = 0;
     winSound.play();
     let winner = o_turn ? 'O' : 'X';
+    gamesPlayed++;
+    declareWinner(winner);
+    if(seriesCompleted){
+      return;
+    }
     let funWinningPhrases = [
       `Hooray! ${winner} won the game!`,
       `Yippee! ${winner} took the day!`,
@@ -119,7 +165,7 @@ function handleClick(e) {
     ];
     let randomIndex = Math.floor(Math.random() * funDrawPhrases.length);
     status.innerText = funDrawPhrases[randomIndex];
-
+    gamesPlayed++;
   } else {
     clickSound.currentTime = 0; 
     clickSound.play();
@@ -140,5 +186,19 @@ function resetBoard() {
     cell.addEventListener('click', handleClick, { once: true });
   });
   status.innerText = '';
+  if (gamesPlayed < totalGames) {
+    status.innerText = `Game ${gamesPlayed + 1}/${totalGames}`;
+  }
+  if(seriesCompleted){
+    status.innerText  = 'Starting a new series';
+    gamesPlayed = 0;
+    setTimeout(function(){
+      status.innerText = `Game: ${gamesPlayed+1}/${totalGames}`;
+    },2000);
+    seriesCompleted = false;
+    winsX = 0;
+    winsO = 0;
+    document.querySelector('#score').innerText = `Score - X: ${winsX}, O: ${winsO}`;
+  }
   o_turn = false;
 }

@@ -5,7 +5,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: auto;
   margin: 0;
   padding: 0;
 }
@@ -55,7 +55,6 @@ body {
 }
 
 #reset {
-  margin-top: 20px;
   padding: 10px 20px;
   background-color: #f00;
   color: #fff;
@@ -152,3 +151,10 @@ body {
   font-size: 0.7em;
   color: #777;
 }
+
+#score {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
