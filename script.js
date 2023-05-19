@@ -3,6 +3,7 @@ let o_turn = false;
 let gameEnded = false;
 let status = document.getElementById('game-status');
 let clickSound = document.getElementById('click-sound');
+let winSound = document.getElementById('win-sound');
 
 function checkForVictory(squares) {
   let combos = [
@@ -38,9 +39,6 @@ function handleClick(e) {
     return; // Return early if the game has ended
   }
 
-  clickSound.currentTime = 0; 
-  clickSound.play();
-
   if (o_turn) {
     e.target.innerText = 'O';
     e.target.style.color = '#b30000';
@@ -51,6 +49,8 @@ function handleClick(e) {
 
   if (checkForVictory(board)) {
     gameEnded = true;
+    winSound.currentTime = 0;
+    winSound.play();
     let winner = o_turn ? 'O' : 'X';
     let funWinningPhrases = [
       `Hooray! ${winner} won the game!`,
@@ -62,6 +62,8 @@ function handleClick(e) {
 
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
     gameEnded = true;
+    clickSound.currentTime = 0; 
+    clickSound.play();
     let funDrawPhrases = [
       `Oops! It's a draw. Try again!`,
       `A tie! The battlefield is even!`,
@@ -71,6 +73,8 @@ function handleClick(e) {
     status.innerText = funDrawPhrases[randomIndex];
 
   } else {
+    clickSound.currentTime = 0; 
+    clickSound.play();
     o_turn = !o_turn;
   }
 
