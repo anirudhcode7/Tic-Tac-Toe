@@ -14,16 +14,34 @@ let seriesCompleted = false;
 
 let scoreElement = document.getElementById("score");
 
-function initializeScorecard(){
-  scoreElement.innerText = `Score - X: ${winsX}, O: ${winsO}`
-  status.innerText = `Game: ${gamesPlayed}/${totalGames}`
+function typeStatus(message) {
+  let i = 0;
+  let speed = 50; // Speed/duration of the effect in milliseconds
+  status.innerHTML = "";
+  message = message.trim(); // remove leading and trailing spaces
+  typeWriter();
+
+  function typeWriter() {
+    if (i < message.length) {
+      status.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+    else {
+      i=0;
+    }
+  }
 }
 
+function initializeScorecard(){
+  scoreElement.innerText = `Score - X: ${winsX}, O: ${winsO}`
+  typeStatus(`Game: ${gamesPlayed + 1}/${totalGames}`);
+}
 
 // Call initializeGame when the page loads
 window.onload = initializeScorecard;
 
-// Update this function to increment the win counters
+// Update this function to incr ement the win counters
 function declareWinner(winner) {
   if (winner == 'X') {
     winsX++;
@@ -36,12 +54,12 @@ function declareWinner(winner) {
   if (gamesPlayed == totalGames) {
     if (winsX > winsO) {
       document.querySelector('#quote-container').style.display = "block";
-      document.querySelector('#game-status').innerText = "Player X won the series!";
+      typeStatus("Player X won the series!");
     } else if (winsO > winsX) {
       document.querySelector('#quote-container').style.display = "block";
-      document.querySelector('#game-status').innerText = "Player O won the series!";
+      typeStatus("Player O won the series!");
     } else {
-      document.querySelector('#game-status').innerText = "The series ended in a draw!";
+      typeStatus("The series ended in a draw!");
     }
     seriesCompleted = true;
   }
@@ -151,7 +169,8 @@ function handleClick(e) {
       `Glorious victory for ${winner}!`
     ];
     let randomIndex = Math.floor(Math.random() * funWinningPhrases.length);
-    status.innerText = funWinningPhrases[randomIndex];
+    // status.innerText = funWinningPhrases[randomIndex];
+    typeStatus(funWinningPhrases[randomIndex]);
     // setRandomQuote();
 
   } else if (board.every(cell => cell.innerText !== '')) { // Check for a draw
@@ -164,8 +183,14 @@ function handleClick(e) {
       `It's a standoff! Let's have another round!`
     ];
     let randomIndex = Math.floor(Math.random() * funDrawPhrases.length);
-    status.innerText = funDrawPhrases[randomIndex];
+    // status.innerText = funDrawPhrases[randomIndex];
+    typeStatus(funDrawPhrases[randomIndex]);
     gamesPlayed++;
+    if (gamesPlayed == totalGames){
+      setTimeout(function(){
+        declareWinner('D');
+      },2000);
+    }
   } else {
     clickSound.currentTime = 0; 
     clickSound.play();
@@ -187,13 +212,13 @@ function resetBoard() {
   });
   status.innerText = '';
   if (gamesPlayed < totalGames) {
-    status.innerText = `Game ${gamesPlayed + 1}/${totalGames}`;
+    typeStatus(`Game ${gamesPlayed + 1}/${totalGames}`);
   }
   if(seriesCompleted){
-    status.innerText  = 'Starting a new series';
+    typeStatus('Starting a new series');
     gamesPlayed = 0;
     setTimeout(function(){
-      status.innerText = `Game: ${gamesPlayed+1}/${totalGames}`;
+      typeStatus(`Game: ${gamesPlayed+1}/${totalGames}`);
     },2000);
     seriesCompleted = false;
     winsX = 0;
