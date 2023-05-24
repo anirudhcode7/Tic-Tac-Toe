@@ -133,14 +133,14 @@ body {
   border-right: .15em solid rgb(24, 24, 22); /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   letter-spacing: .05em; /* Adjust as needed */
-  animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+  animation: typing 1.5s steps(40, end), blink-caret 1s step-end infinite;
   width: fit-content;
 }
 
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
-  to { width: 100% }
+  to { width: 30% }
 }
 
 /* The typewriter cursor effect */
