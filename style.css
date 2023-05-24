@@ -96,6 +96,9 @@ body {
 
   #game-status {
     font-size: 2em; /* Decrease to fit smaller screen */
+    width: auto;
+    display: flex;
+    height: auto;
   }
 
   #reset {
@@ -134,7 +137,9 @@ body {
   white-space: nowrap; /* Keeps the content on a single line */
   letter-spacing: .05em; /* Adjust as needed */
   animation: typing 1.5s steps(40, end), blink-caret 1s step-end infinite;
-  width: fit-content;
+  width: auto;
+  display: flex;
+  height: auto;
 }
 
 /* The typing effect */
