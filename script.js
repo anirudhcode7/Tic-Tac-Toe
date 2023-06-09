@@ -14,6 +14,42 @@ let seriesCompleted = false;
 
 let scoreElement = document.getElementById("score");
 
+function vwToPx(vw) {
+  const pixelValue = (vw * window.innerWidth) / 100;
+  return pixelValue;
+}
+
+const backgroundContainer = document.getElementById('background');
+
+// Calculate the number of background blocks based on screen resolution
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+
+const blockWidth = vwToPx(7);
+let numCols = Math.floor(screenWidth / blockWidth);
+
+
+const blockHeight = vwToPx(7);
+const numRows = Math.ceil(screenHeight/blockHeight);
+
+for (let i=0; i < numRows; i++) {
+  for (let j=0; j < numCols; j++) {
+    const block = document.createElement('div');
+    block.className = 'box';
+    backgroundContainer.appendChild(block);
+  }
+  const block = document.createElement('div');
+  block.className = 'box';
+  const blocks = document.getElementsByClassName('box');
+  const lastBlock = blocks[0];
+  const blockWidth = lastBlock.offsetWidth;
+  const blockWidthPerRow = blockWidth*numCols;
+  const requiredBlockWidth = screenWidth - blockWidthPerRow - 1;
+  block.style.width = requiredBlockWidth + 'px';
+  backgroundContainer.appendChild(block);
+}
+
+
 function typeStatus(message) {
   let i = 0;
   let speed = 50; // Speed/duration of the effect in milliseconds
