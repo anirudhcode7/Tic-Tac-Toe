@@ -14,6 +14,42 @@ let seriesCompleted = false;
 
 let scoreElement = document.getElementById("score");
 
+function vwToPx(vw) {
+  const pixelValue = (vw * window.innerWidth) / 100;
+  return pixelValue;
+}
+
+const backgroundContainer = document.getElementById('background');
+
+// Calculate the number of background blocks based on screen resolution
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+
+const blockWidth = vwToPx(7);
+let numCols = Math.floor(screenWidth / blockWidth);
+
+
+const blockHeight = vwToPx(7);
+const numRows = Math.ceil(screenHeight/blockHeight);
+
+for (let i=0; i < numRows; i++) {
+  for (let j=0; j < numCols; j++) {
+    const block = document.createElement('div');
+    block.className = 'box';
+    backgroundContainer.appendChild(block);
+  }
+  const block = document.createElement('div');
+  block.className = 'box';
+  const blocks = document.getElementsByClassName('box');
+  const lastBlock = blocks[0];
+  const blockWidth = lastBlock.offsetWidth;
+  const blockWidthPerRow = blockWidth*numCols;
+  const requiredBlockWidth = screenWidth - blockWidthPerRow - 1;
+  block.style.width = requiredBlockWidth + 'px';
+  backgroundContainer.appendChild(block);
+}
+
+
 function typeStatus(message) {
   let i = 0;
   let speed = 50; // Speed/duration of the effect in milliseconds
@@ -127,6 +163,7 @@ function checkForVictory(squares) {
     line.style.transformOrigin = 'left center';
     line.style.left = startX + "px";
     line.style.display = "block";
+    line.style.zIndex = 10000;
 
     return true;
   }
@@ -227,3 +264,38 @@ function resetBoard() {
   }
   o_turn = false;
 }
+
+let icons = ['X', 'O']; // The characters to fall
+
+delay = 0; // The time for the first character to fall
+
+let fallingIconContainer = document.getElementById('falling-icons');
+
+// Creating 100 falling characters
+for (let i = 0; i < 100; i++) {
+    setTimeout(function() {
+        let icon = document.createElement('div');
+        icon.className = 'icon-fall';
+        icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+
+        // Randomize the horizontal position and the speed
+        icon.style.left = Math.random() * 100 + '%';
+        icon.style.animationDuration = (Math.random() * 5 + 2) + 's'; // duration between 2 and 7 seconds
+
+        fallingIconContainer.appendChild(icon);
+
+        // After the icon has fallen, remove it
+        setTimeout(function() {
+            fallingIconContainer.removeChild(icon);
+        }, (parseInt(icon.style.animationDuration) + 1) * 1000);
+    }, delay * 1000);
+
+    // Increase the delay for the next character
+    delay += 0.2;
+}
+
+// Optionally, after the last character has fallen, remove the falling icons container
+setTimeout(function() {
+    fallingIconContainer.remove();
+}, delay * 1000);
+
