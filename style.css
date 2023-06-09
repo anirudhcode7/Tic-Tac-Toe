@@ -1,22 +1,24 @@
 body {
-  background-color: yellow;
+  background-color: #025464;
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: auto;
   margin: 0;
   padding: 0;
+  z-index: 9999;
 }
 
 #title {
   font-size: 2.5em;
   font-family: 'Pacifico', cursive; /* Using Pacifico font */
-  color: #000000;
+  color: #E57C23;
   text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
   padding: 20px;
   transition: transform 0.3s ease-in-out;
+  z-index: 9999;
 }
 
 #title:hover {
@@ -43,10 +45,11 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #F8F1F1;
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease-in-out;
   font-size: 2em;
+  z-index: 9999;
 }
 
 .cell:hover {
@@ -55,19 +58,20 @@ body {
 }
 
 #reset {
-  margin-top: 20px;
   padding: 10px 20px;
-  background-color: #f00;
+  background-color: #E57C23;
   color: #fff;
   border: none;
   border-radius: 5px;
   font-size: 1.5em;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  z-index: 9999;
+
 }
 
 #reset:hover {
-  background-color: #b30000;
+  background-color: #E8AA42;
 }
 
 .cell:empty:hover {
@@ -97,6 +101,10 @@ body {
 
   #game-status {
     font-size: 2em; /* Decrease to fit smaller screen */
+    width: auto;
+    display: flex;
+    height: auto;
+    color:#E8AA42;
   }
 
   #reset {
@@ -129,8 +137,28 @@ body {
 }
 
 #game-status {
-  height: 30px; /* adjust as needed */
-  text-align: center;
+  /* The rest of your styles... */
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid rgb(24, 24, 22); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  letter-spacing: .05em; /* Adjust as needed */
+  animation: typing 1.5s steps(40, end), blink-caret 1s step-end infinite;
+  color:#E8AA42;
+  width: auto;
+  display: flex;
+  height: auto;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 30% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(22, 21, 20); }
 }
 
 #quote-container {
@@ -150,5 +178,80 @@ body {
 
 #quote-author {
   font-size: 0.7em;
-  color: #777;
+  color: #F8F1F1;
+}
+
+#score {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 20px;
+  color:#E8AA42;
+}
+
+#falling-icons {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.icon-fall {
+  position: absolute;
+  top: -50px;
+  font-size: 30px;
+  animation: fall linear infinite, rotation linear infinite;
+}
+
+@keyframes fall {
+  0% {
+      top: -50px;
+      opacity: 1;
+  }
+  100% {
+      top: 110%;
+      opacity: 0;
+  }
+}
+
+@keyframes rotation {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+#background {
+  perspective: 1000px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow: hidden;
+  position: absolute;
+  z-index: 9999;
+}
+
+.box {
+  position: relative;
+  width: 7vw;
+  height: 7vw;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg);
+  background: rgba(0,0,0,0.1);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+  z-index: 9999;
+  flex-shrink: 0;
+}
+
+.box:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 20px rgba(0,0,0,0.2);
+  z-index: 9999;
 }
